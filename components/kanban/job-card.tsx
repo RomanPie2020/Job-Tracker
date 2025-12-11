@@ -1,20 +1,18 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useJobsStore } from "@/store/useJobsStore";
-import { Job } from "@/utils/job-types";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { motion } from "framer-motion";
-import { GripVertical, Trash2 } from "lucide-react";
+import { DeleteJobModal } from "@/components/modals/delete-job-modal"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Job } from "@/utils/job-types"
+import { useSortable } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import { motion } from "framer-motion"
+import { GripVertical } from "lucide-react"
 
 interface JobCardProps {
   job: Job;
 }
 
 export function JobCard({ job }: JobCardProps) {
-  const optimisticDelete = useJobsStore((state) => state.optimisticDelete);
   const {
     attributes,
     listeners,
@@ -29,13 +27,6 @@ export function JobCard({ job }: JobCardProps) {
     transition,
   };
 
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (confirm(`Delete "${job.title}" at ${job.company}?`)) {
-      optimisticDelete(job.id);
-    }
-  };
-
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
     return date.toLocaleDateString("en-US", {
@@ -48,10 +39,8 @@ export function JobCard({ job }: JobCardProps) {
     <motion.div
       ref={setNodeRef}
       style={style}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      whileHover={{ scale: isDragging ? 1 : 1.02 }}
+      layout
+      whileHover={!isDragging ? { scale: 1.02 } : undefined}
       transition={{ duration: 0.2 }}
     >
       <Card
@@ -72,14 +61,7 @@ export function JobCard({ job }: JobCardProps) {
               >
                 <GripVertical className="h-4 w-4 text-muted-foreground" />
               </button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
-                onClick={handleDelete}
-              >
-                <Trash2 className="h-4 w-4 text-destructive" />
-              </Button>
+              <DeleteJobModal job={job} />
             </div>
           </div>
         </CardHeader>
