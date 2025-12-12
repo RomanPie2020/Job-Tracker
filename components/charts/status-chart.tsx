@@ -1,10 +1,11 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useJobsStore } from "@/store/useJobsStore";
-import { JOB_STATUSES, JobStatus } from "@/utils/job-types";
-import { motion } from "framer-motion";
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useJobsStore } from "@/store/useJobsStore"
+import { JOB_STATUSES, JobStatus } from "@/utils/job-types"
+import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
 
 const COLORS: Record<JobStatus, string> = {
   Applied: "#3b82f6",
@@ -16,6 +17,17 @@ const COLORS: Record<JobStatus, string> = {
 
 export function StatusChart() {
   const jobs = useJobsStore((state) => state.jobs);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const data = JOB_STATUSES.map((status) => ({
     name: status,
@@ -55,8 +67,9 @@ export function StatusChart() {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) =>
-                  `${name}: ${(percent * 100).toFixed(0)}%`
+                label={!isMobile 
+                  ? ({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`
+                  : false
                 }
                 outerRadius={80}
                 fill="#8884d8"

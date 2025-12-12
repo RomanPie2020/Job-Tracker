@@ -51,10 +51,10 @@ export function JobCard({ job }: JobCardProps) {
       >
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-base font-semibold leading-tight">
+            <CardTitle className="min-w-0 flex-1 text-base font-semibold leading-tight line-clamp-2 break-words">
               {job.title}
             </CardTitle>
-            <div className="flex items-center gap-1">
+            <div className="flex shrink-0 items-center gap-1">
               <button
                 {...attributes}
                 {...listeners}
@@ -68,11 +68,11 @@ export function JobCard({ job }: JobCardProps) {
           </div>
         </CardHeader>
         <CardContent className="space-y-2">
-          <p className="text-sm font-medium text-muted-foreground">
+          <p className="text-sm font-medium text-muted-foreground truncate">
             {job.company}
           </p>
           {job.notes && (
-            <p className="line-clamp-2 text-xs text-muted-foreground">
+            <p className="line-clamp-2 text-xs text-muted-foreground break-words">
               {job.notes}
             </p>
           )}

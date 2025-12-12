@@ -1,12 +1,12 @@
 "use client";
 
-import { useJobsStore } from "@/store/useJobsStore";
-import { JOB_STATUSES, JobStatus } from "@/utils/job-types";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { Column } from "./column";
-import { JobCard } from "./job-card";
+import { useJobsStore } from "@/store/useJobsStore"
+import { JOB_STATUSES, JobStatus } from "@/utils/job-types"
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
+import { motion } from "framer-motion"
+import { useState } from "react"
+import { Column } from "./column"
+import { JobCard } from "./job-card"
 
 export function Board() {
   const jobs = useJobsStore((state) => state.jobs);
@@ -70,7 +70,7 @@ export function Board() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5"
+        className="grid grid-cols-1 gap-4 md:grid-cols-3 xl:grid-cols-5"
       >
         {JOB_STATUSES.map((status) => (
           <Column key={status} status={status} jobs={getJobsByStatus(status)} />

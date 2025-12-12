@@ -2,12 +2,12 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Briefcase, LogOut } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
@@ -28,15 +28,15 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <Briefcase className="h-6 w-6 text-primary" />
-          <h1 className="text-xl font-bold">Job Tracker</h1>
+        <div className="flex min-w-0 flex-1 items-center gap-2">
+          <Briefcase className="h-6 w-6 shrink-0 text-primary" />
+          <h1 className="truncate text-xl font-bold">Job Tracker</h1>
         </div>
 
         {session?.user && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+              <button className="ml-4 flex shrink-0 items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                 <Avatar>
                   <AvatarImage
                     src={session.user.image || undefined}

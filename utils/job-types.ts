@@ -15,6 +15,17 @@ export interface CreateJobData {
   notes?: string;
 }
 
+export interface JobsStore {
+  jobs: Job[];
+  isSyncing: boolean;
+  lastError?: string;
+  setJobs: (jobs: Job[]) => void;
+  optimisticCreate: (jobData: CreateJobData) => Promise<void>;
+  optimisticUpdate: (id: string, patch: Partial<Job>) => Promise<void>;
+  optimisticDelete: (id: string) => Promise<void>;
+  optimisticUpdateStatus: (id: string, status: JobStatus) => Promise<void>;
+}
+
 export const JOB_STATUSES: JobStatus[] = [
   "Applied",
   "Screening",
