@@ -1,6 +1,7 @@
 "use client";
 
 import { DeleteJobModal } from "@/components/modals/delete-job-modal"
+import { EditJobModal } from "@/components/modals/edit-job-modal"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Job } from "@/utils/job-types"
 import { useSortable } from "@dnd-kit/sortable"
@@ -61,6 +62,7 @@ export function JobCard({ job }: JobCardProps) {
               >
                 <GripVertical className="h-4 w-4 text-muted-foreground" />
               </button>
+              <EditJobModal job={job} />
               <DeleteJobModal job={job} />
             </div>
           </div>
