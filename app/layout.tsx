@@ -3,12 +3,26 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { Providers } from "./providers"
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
   title: "Job Application Tracker",
   description: "Track your job applications with ease",
 };
+
+// Скрипт для застосування теми до гідрації React
+const themeScript = `
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme');
+      if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } catch (e) {}
+  })();
+`;
 
 export default function RootLayout({
   children,
@@ -16,8 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en"
-    >
+    <html lang="uk" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className={inter.className}>
         <Providers>{children}</Providers>
       </body>

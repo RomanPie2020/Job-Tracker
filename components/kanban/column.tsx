@@ -1,5 +1,6 @@
 "use client";
 
+import { getStatusLabel, useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/utils";
 import { Job, JobStatus, STATUS_COLORS } from "@/utils/job-types";
 import { useDroppable } from "@dnd-kit/core";
@@ -14,18 +15,11 @@ interface ColumnProps {
   jobs: Job[];
 }
 
-const STATUS_LABELS: Record<JobStatus, string> = {
-  Applied: "Applied",
-  Screening: "Screening",
-  Interview: "Interview",
-  Offer: "Offer",
-  Rejected: "Rejected",
-};
-
 export function Column({ status, jobs }: ColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: status,
   });
+  const { t } = useLanguage();
 
   return (
     <div
@@ -37,7 +31,7 @@ export function Column({ status, jobs }: ColumnProps) {
     >
       <div className="mb-4 flex items-center gap-2">
         <div className={cn("h-3 w-3 rounded-full", STATUS_COLORS[status])} />
-        <h3 className="font-semibold">{STATUS_LABELS[status]}</h3>
+        <h3 className="font-semibold">{getStatusLabel(status, t)}</h3>
         <span className="ml-auto rounded-full bg-muted px-2 py-0.5 text-xs font-medium">
           {jobs.length}
         </span>
@@ -50,7 +44,7 @@ export function Column({ status, jobs }: ColumnProps) {
         <div className="flex flex-1 flex-col gap-3">
           {jobs.length === 0 ? (
             <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
-              No jobs yet
+              {t.noJobsYet}
             </div>
           ) : (
             jobs.map((job) => <JobCard key={job.id} job={job} />)

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useLanguage } from "@/lib/language-context";
 import { useJobsStore } from "@/store/useJobsStore";
 import { Plus } from "lucide-react";
 import { useState } from "react";
@@ -22,6 +23,7 @@ export function AddJobModal() {
   const [company, setCompany] = useState("");
   const [notes, setNotes] = useState("");
   const optimisticCreate = useJobsStore((state) => state.optimisticCreate);
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,21 +50,21 @@ export function AddJobModal() {
       <DialogTrigger asChild>
         <Button className="gap-2">
           <Plus className="h-4 w-4" />
-          Add Job
+          {t.addJob}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Add New Job Application</DialogTitle>
+            <DialogTitle>{t.addNewJob}</DialogTitle>
             <DialogDescription>
-              Track a new job application. Fill in the details below.
+              {t.trackNewJob}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <label htmlFor="title" className="text-sm font-medium">
-                Job Title <span className="text-destructive">*</span>
+                {t.jobTitle} <span className="text-destructive">*</span>
               </label>
               <Input
                 id="title"
@@ -75,7 +77,7 @@ export function AddJobModal() {
             </div>
             <div className="grid gap-2">
               <label htmlFor="company" className="text-sm font-medium">
-                Company <span className="text-destructive">*</span>
+                {t.companyName} <span className="text-destructive">*</span>
               </label>
               <Input
                 id="company"
@@ -87,11 +89,11 @@ export function AddJobModal() {
             </div>
             <div className="grid gap-2">
               <label htmlFor="notes" className="text-sm font-medium">
-                Notes
+                {t.notes}
               </label>
               <Textarea
                 id="notes"
-                placeholder="Add any additional notes..."
+                placeholder="..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={4}
@@ -104,10 +106,10 @@ export function AddJobModal() {
               variant="outline"
               onClick={() => setOpen(false)}
             >
-              Cancel
+              {t.cancel}
             </Button>
             <Button type="submit" disabled={!title.trim() || !company.trim()}>
-              Add Job
+              {t.addJob}
             </Button>
           </DialogFooter>
         </form>

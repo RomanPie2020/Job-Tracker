@@ -1,11 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useJobsStore } from "@/store/useJobsStore"
-import { JOB_STATUSES, JobStatus } from "@/utils/job-types"
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getStatusLabel, useLanguage } from "@/lib/language-context";
+import { useJobsStore } from "@/store/useJobsStore";
+import { JOB_STATUSES, JobStatus } from "@/utils/job-types";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 const COLORS: Record<JobStatus, string> = {
   Applied: "#3b82f6",
@@ -18,6 +19,7 @@ const COLORS: Record<JobStatus, string> = {
 export function StatusChart() {
   const jobs = useJobsStore((state) => state.jobs);
   const [isMobile, setIsMobile] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -30,19 +32,20 @@ export function StatusChart() {
   }, []);
 
   const data = JOB_STATUSES.map((status) => ({
-    name: status,
+    name: getStatusLabel(status, t),
     value: jobs.filter((job) => job.status === status).length,
+    status: status,
   })).filter((item) => item.value > 0);
 
   if (jobs.length === 0) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Application Status Overview</CardTitle>
+          <CardTitle>{t.applicationStatusOverview}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex h-[300px] items-center justify-center text-muted-foreground">
-            No data to display yet. Add some job applications to see statistics.
+            {t.noDataYet}
           </div>
         </CardContent>
       </Card>
@@ -57,7 +60,7 @@ export function StatusChart() {
     >
       <Card>
         <CardHeader>
-          <CardTitle>Application Status Overview</CardTitle>
+          <CardTitle>{t.applicationStatusOverview}</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -78,7 +81,7 @@ export function StatusChart() {
                 {data.map((entry) => (
                   <Cell
                     key={`cell-${entry.name}`}
-                    fill={COLORS[entry.name as JobStatus]}
+                    fill={COLORS[entry.status as JobStatus]}
                   />
                 ))}
               </Pie>
@@ -99,7 +102,7 @@ export function StatusChart() {
                     style={{ backgroundColor: COLORS[status] }}
                   />
                   <p className="text-xs font-medium text-muted-foreground">
-                    {status}
+                    {getStatusLabel(status, t)}
                   </p>
                   <p className="text-2xl font-bold">{count}</p>
                 </div>
