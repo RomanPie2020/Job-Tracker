@@ -89,33 +89,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - **Charts:** Recharts
 - **Notifications:** react-hot-toast
 
-## 📁 Project Structure
-
-```
-├── app/
-│   ├── api/
-│   │   ├── auth/[...nextauth]/  # NextAuth endpoints
-│   │   └── jobs/                # Jobs API routes
-│   ├── dashboard/               # Dashboard page
-│   ├── layout.tsx               # Root layout
-│   ├── page.tsx                 # Landing page
-│   └── providers.tsx            # Client providers
-├── components/
-│   ├── charts/                  # Chart components
-│   ├── kanban/                  # Kanban board components
-│   ├── modals/                  # Modal dialogs
-│   ├── ui/                      # shadcn/ui components
-│   └── navbar.tsx               # Navigation bar
-├── lib/
-│   ├── auth.ts                  # NextAuth configuration
-│   ├── jobs.server.ts           # Server-side job operations
-│   └── utils.ts                 # Utility functions
-├── store/
-│   └── useJobsStore.ts          # Zustand store
-└── utils/
-    └── job-types.ts             # TypeScript types
-```
-
 ## 🎨 Application Statuses
 
 - **Applied** - Initial application submitted
@@ -150,6 +123,3 @@ MIT
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
----
-
-Built with ❤️ using Next.js and Vercel
