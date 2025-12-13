@@ -3,7 +3,7 @@
 import { DeleteJobModal } from "@/components/modals/delete-job-modal"
 import { EditJobModal } from "@/components/modals/edit-job-modal"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Job } from "@/utils/job-types"
+import { Job } from "@/shared/types/job-types"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { motion } from "framer-motion"

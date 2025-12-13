@@ -1,6 +1,6 @@
-import { CreateJobData, Job, JobStatus } from "@/utils/job-types";
-import { kv } from "@vercel/kv";
-import { v4 as uuidv4 } from "uuid";
+import { CreateJobData, Job, JobStatus } from "@/shared/types/job-types"
+import { kv } from "@vercel/kv"
+import { v4 as uuidv4 } from "uuid"
 
 const getJobsKey = (email: string) => `jobs:${email}`;
 

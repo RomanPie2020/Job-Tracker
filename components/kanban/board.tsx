@@ -1,7 +1,7 @@
 "use client";
 
+import { JOB_STATUSES, JobStatus } from "@/shared/types/job-types"
 import { useJobsStore } from "@/store/useJobsStore"
-import { JOB_STATUSES, JobStatus } from "@/utils/job-types"
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { motion } from "framer-motion"
 import { useState } from "react"

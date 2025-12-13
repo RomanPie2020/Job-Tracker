@@ -2,17 +2,17 @@
 
 import { Button } from "@/components/ui/button"
 import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { Job } from "@/shared/types/job-types"
 import { useJobsStore } from "@/store/useJobsStore"
-import { Job } from "@/utils/job-types"
 import { Pencil } from "lucide-react"
 import { useEffect, useState } from "react"
 

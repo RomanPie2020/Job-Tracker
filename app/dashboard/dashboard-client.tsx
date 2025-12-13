@@ -1,19 +1,19 @@
 "use client";
 
-import { StatusChart } from "@/components/charts/status-chart";
-import { Board } from "@/components/kanban/board";
-import { AddJobModal } from "@/components/modals/add-job-modal";
-import { Navbar } from "@/components/navbar";
-import { useLanguage } from "@/lib/language-context";
-import { useJobsStore } from "@/store/useJobsStore";
-import { Job } from "@/utils/job-types";
-import { useEffect } from "react";
+import { StatusChart } from "@/components/charts/status-chart"
+import { Board } from "@/components/kanban/board"
+import { AddJobModal } from "@/components/modals/add-job-modal"
+import { Navbar } from "@/components/navbar"
+import { useLanguage } from "@/lib/language-context"
+import { Job } from "@/shared/types/job-types"
+import { useJobsStore } from "@/store/useJobsStore"
+import { useEffect } from "react"
 
-interface DashboardClientProps {
+interface IDashboardClientProps {
   initialJobs: Job[];
 }
 
-export function DashboardClient({ initialJobs }: DashboardClientProps) {
+export function DashboardClient({ initialJobs }: IDashboardClientProps) {
   const setJobs = useJobsStore((state) => state.setJobs);
   const { t } = useLanguage();
 

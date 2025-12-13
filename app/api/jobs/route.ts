@@ -1,14 +1,14 @@
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth"
 import {
-    createJob,
-    deleteJob,
-    getJobs,
-    updateJob,
-    updateJobStatus,
-} from "@/lib/jobs.server";
-import { CreateJobData, Job, JobStatus } from "@/utils/job-types";
-import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+  createJob,
+  deleteJob,
+  getJobs,
+  updateJob,
+  updateJobStatus,
+} from "@/lib/jobs.server"
+import { CreateJobData, Job, JobStatus } from "@/shared/types/job-types"
+import { getServerSession } from "next-auth"
+import { NextRequest, NextResponse } from "next/server"
 
 async function getAuthenticatedEmail() {
   const session = await getServerSession(authOptions);

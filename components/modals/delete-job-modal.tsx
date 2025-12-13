@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import { useJobsStore } from "@/store/useJobsStore";
-import { Job } from "@/utils/job-types";
-import { Trash2 } from "lucide-react";
-import { useState } from "react";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Job } from "@/shared/types/job-types"
+import { useJobsStore } from "@/store/useJobsStore"
+import { Trash2 } from "lucide-react"
+import { useState } from "react"
 
 interface DeleteJobModalProps {
   job: Job;

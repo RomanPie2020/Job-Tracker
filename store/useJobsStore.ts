@@ -1,5 +1,5 @@
 import { jobsApi } from "@/lib/api-client"
-import { CreateJobData, Job, JobsStore } from "@/utils/job-types"
+import { CreateJobData, Job, JobsStore } from "@/shared/types/job-types"
 import toast from "react-hot-toast"
 import { create } from "zustand"
 

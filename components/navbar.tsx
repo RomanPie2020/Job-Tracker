@@ -2,12 +2,12 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useLanguage } from '@/lib/language-context'
 import { useTheme } from '@/lib/theme-context'
@@ -32,15 +32,12 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-16 w-full items-center justify-between px-4">
-        {/* Logo - ліва сторона */}
         <div className="flex shrink-0 items-center gap-2">
           <Briefcase className="h-6 w-6 shrink-0 text-primary" />
           <h1 className="text-xl font-bold">{t.jobTracker}</h1>
         </div>
 
-        {/* Праві елементи - завжди справа */}
         <div className="flex shrink-0 items-center gap-2">
-          {/* Перемикач мови */}
           <button
             onClick={toggleLanguage}
             className="flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
@@ -49,7 +46,6 @@ export function Navbar() {
             <Globe className="h-4 w-4" />
           </button>
 
-          {/* Перемикач теми */}
           <button
             onClick={toggleTheme}
             className="flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
@@ -62,7 +58,6 @@ export function Navbar() {
             )}
           </button>
 
-          {/* Аватар користувача */}
           {session?.user && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
