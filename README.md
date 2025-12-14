@@ -1,4 +1,4 @@
-# 🎯 Job Application Tracker
+# 🎯 Job Tracker
 
 A modern, full-stack job application tracking system built with Next.js 15, TypeScript, and Vercel KV.
 
