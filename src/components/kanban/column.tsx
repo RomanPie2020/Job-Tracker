@@ -8,12 +8,12 @@ import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { JobCard } from './job-card'
 
-interface ColumnProps {
+interface IColumnProps {
   status: TJobStatus
   jobs: IJob[]
 }
 
-export function Column({ status, jobs }: ColumnProps) {
+export function Column({ status, jobs }: IColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: status,
   })

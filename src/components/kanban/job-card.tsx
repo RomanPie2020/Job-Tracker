@@ -9,11 +9,11 @@ import { CSS } from '@dnd-kit/utilities'
 import { motion } from 'framer-motion'
 import { GripVertical } from 'lucide-react'
 
-interface JobCardProps {
+interface IJobCardProps {
   job: IJob
 }
 
-export function JobCard({ job }: JobCardProps) {
+export function JobCard({ job }: IJobCardProps) {
   const {
     attributes,
     listeners,

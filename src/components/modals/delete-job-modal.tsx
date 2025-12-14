@@ -48,7 +48,7 @@ export function DeleteJobModal({ job, trigger }: DeleteJobModalProps) {
           <Trash2 className="h-4 w-4 text-destructive" />
         </Button>
       )}
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Delete IJob Application</DialogTitle>
           <DialogDescription>
@@ -56,26 +56,28 @@ export function DeleteJobModal({ job, trigger }: DeleteJobModalProps) {
             cannot be undone.
           </DialogDescription>
         </DialogHeader>
-        <div className="rounded-lg border bg-muted/50 p-4">
+        <div className="rounded-lg border bg-muted/50 p-4 overflow-hidden">
           <div className="space-y-2">
             <div>
               <p className="text-sm font-medium text-muted-foreground">
                 Position
               </p>
-              <p className="font-semibold">{job.title}</p>
+              <p className="font-semibold break-words">
+                {job.title}
+              </p>
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">
                 Company
               </p>
-              <p className="font-semibold">{job.company}</p>
+              <p className="font-semibold break-words">{job.company}</p>
             </div>
             {job.notes && (
               <div>
                 <p className="text-sm font-medium text-muted-foreground">
                   Notes
                 </p>
-                <p className="text-sm">{job.notes}</p>
+                <p className="text-sm break-words whitespace-pre-wrap">{job.notes}</p>
               </div>
             )}
           </div>

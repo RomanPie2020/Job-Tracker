@@ -16,12 +16,12 @@ import { useJobsStore } from '@/store/useJobsStore'
 import { Pencil } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-interface EditJobModalProps {
+interface IEditJobModalProps {
   job: IJob
   trigger?: React.ReactNode
 }
 
-export function EditJobModal({ job, trigger }: EditJobModalProps) {
+export function EditJobModal({ job, trigger }: IEditJobModalProps) {
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState(job.title)
   const [company, setCompany] = useState(job.company)
