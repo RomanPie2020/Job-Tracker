@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,48 +8,47 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Job } from "@/shared/types/job-types"
-import { useJobsStore } from "@/store/useJobsStore"
-import { Pencil } from "lucide-react"
-import { useEffect, useState } from "react"
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { useJobsStore } from '@/store/useJobsStore'
+import { Pencil } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 interface EditJobModalProps {
-  job: Job;
-  trigger?: React.ReactNode;
+  job: IJob
+  trigger?: React.ReactNode
 }
 
 export function EditJobModal({ job, trigger }: EditJobModalProps) {
-  const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState(job.title);
-  const [company, setCompany] = useState(job.company);
-  const [notes, setNotes] = useState(job.notes || "");
-  const optimisticUpdate = useJobsStore((state) => state.optimisticUpdate);
+  const [open, setOpen] = useState(false)
+  const [title, setTitle] = useState(job.title)
+  const [company, setCompany] = useState(job.company)
+  const [notes, setNotes] = useState(job.notes || '')
+  const optimisticUpdate = useJobsStore((state) => state.optimisticUpdate)
 
   // Update form when job changes
   useEffect(() => {
-    setTitle(job.title);
-    setCompany(job.company);
-    setNotes(job.notes || "");
-  }, [job]);
+    setTitle(job.title)
+    setCompany(job.company)
+    setNotes(job.notes || '')
+  }, [job])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!title.trim() || !company.trim()) {
-      return;
+      return
     }
 
     await optimisticUpdate(job.id, {
       title: title.trim(),
       company: company.trim(),
       notes: notes.trim() || undefined,
-    });
+    })
 
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -61,8 +60,8 @@ export function EditJobModal({ job, trigger }: EditJobModalProps) {
           size="icon"
           className="h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
           onClick={(e) => {
-            e.stopPropagation();
-            setOpen(true);
+            e.stopPropagation()
+            setOpen(true)
           }}
         >
           <Pencil className="h-4 w-4" />
@@ -130,6 +129,5 @@ export function EditJobModal({ job, trigger }: EditJobModalProps) {
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
-

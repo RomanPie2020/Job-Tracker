@@ -1,20 +1,20 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { Providers } from "./providers"
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { Providers } from './providers'
 
-const inter = Inter({ subsets: ["latin", "cyrillic"] });
+const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 
 export const metadata: Metadata = {
-  title: "Job Application Tracker",
-  description: "Track your job applications with ease",
-};
+  title: 'Job Application Tracker',
+  description: 'Track your job applications with ease',
+}
 
-// Скрипт для застосування теми до гідрації React
+// A script to apply the theme to hydration
 const themeScript = `
   (function() {
     try {
-      var theme = localStorage.getItem('theme');
+      let theme = localStorage.getItem('theme');
       if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
       } else {
@@ -22,12 +22,12 @@ const themeScript = `
       }
     } catch (e) {}
   })();
-`;
+`
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="uk" suppressHydrationWarning>
@@ -38,5 +38,5 @@ export default function RootLayout({
         <Providers>{children}</Providers>
       </body>
     </html>
-  );
+  )
 }

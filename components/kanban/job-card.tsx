@@ -1,16 +1,15 @@
-"use client";
+'use client'
 
-import { DeleteJobModal } from "@/components/modals/delete-job-modal"
-import { EditJobModal } from "@/components/modals/edit-job-modal"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Job } from "@/shared/types/job-types"
-import { useSortable } from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
-import { motion } from "framer-motion"
-import { GripVertical } from "lucide-react"
+import { DeleteJobModal } from '@/components/modals/delete-job-modal'
+import { EditJobModal } from '@/components/modals/edit-job-modal'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { motion } from 'framer-motion'
+import { GripVertical } from 'lucide-react'
 
 interface JobCardProps {
-  job: Job;
+  job: IJob
 }
 
 export function JobCard({ job }: JobCardProps) {
@@ -21,20 +20,20 @@ export function JobCard({ job }: JobCardProps) {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: job.id });
+  } = useSortable({ id: job.id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-  };
+  }
 
   const formatDate = (timestamp: number) => {
-    const date = new Date(timestamp);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-  };
+    const date = new Date(timestamp)
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+    })
+  }
 
   return (
     <motion.div
@@ -46,7 +45,7 @@ export function JobCard({ job }: JobCardProps) {
     >
       <Card
         className={`group cursor-move transition-shadow hover:shadow-md ${
-          isDragging ? "opacity-50 shadow-lg" : ""
+          isDragging ? 'opacity-50 shadow-lg' : ''
         }`}
       >
         <CardHeader className="pb-3">
@@ -82,5 +81,5 @@ export function JobCard({ job }: JobCardProps) {
         </CardContent>
       </Card>
     </motion.div>
-  );
+  )
 }

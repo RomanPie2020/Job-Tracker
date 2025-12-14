@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,25 +8,27 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Job } from "@/shared/types/job-types"
-import { useJobsStore } from "@/store/useJobsStore"
-import { Trash2 } from "lucide-react"
-import { useState } from "react"
+} from '@/components/ui/dialog'
+import { useJobsStore } from '@/store/useJobsStore'
+import { Trash2 } from 'lucide-react'
+import { useState } from 'react'
 
 interface DeleteJobModalProps {
-  job: Job;
-  trigger?: React.ReactNode;
+  job: IJob
+  trigger?: React.ReactNode
 }
 
 export function DeleteJobModal({ job, trigger }: DeleteJobModalProps) {
-  const [open, setOpen] = useState(false);
-  const optimisticDelete = useJobsStore((state: { optimisticDelete: (id: string) => Promise<void> }) => state.optimisticDelete);
+  const [open, setOpen] = useState(false)
+  const optimisticDelete = useJobsStore(
+    (state: { optimisticDelete: (id: string) => Promise<void> }) =>
+      state.optimisticDelete
+  )
 
   const handleDelete = () => {
-    optimisticDelete(job.id);
-    setOpen(false);
-  };
+    optimisticDelete(job.id)
+    setOpen(false)
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -38,8 +40,8 @@ export function DeleteJobModal({ job, trigger }: DeleteJobModalProps) {
           size="icon"
           className="h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
           onClick={(e) => {
-            e.stopPropagation();
-            setOpen(true);
+            e.stopPropagation()
+            setOpen(true)
           }}
         >
           <Trash2 className="h-4 w-4 text-destructive" />
@@ -47,7 +49,7 @@ export function DeleteJobModal({ job, trigger }: DeleteJobModalProps) {
       )}
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Delete Job Application</DialogTitle>
+          <DialogTitle>Delete IJob Application</DialogTitle>
           <DialogDescription>
             Are you sure you want to delete this job application? This action
             cannot be undone.
@@ -88,5 +90,5 @@ export function DeleteJobModal({ job, trigger }: DeleteJobModalProps) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

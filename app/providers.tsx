@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import { LanguageProvider } from "@/lib/language-context";
-import { ThemeProvider } from "@/lib/theme-context";
-import { SessionProvider } from "next-auth/react";
-import { Toaster } from "react-hot-toast";
+import { LanguageProvider } from '@/providers/language-context'
+import { ThemeProvider } from '@/providers/theme-context'
+import { SessionProvider } from 'next-auth/react'
+import { Toaster } from 'react-hot-toast'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -16,19 +16,19 @@ export function Providers({ children }: { children: React.ReactNode }) {
             toastOptions={{
               duration: 3000,
               style: {
-                background: "#333",
-                color: "#fff",
+                background: '#333',
+                color: '#fff',
               },
               success: {
                 iconTheme: {
-                  primary: "#22c55e",
-                  secondary: "#fff",
+                  primary: '#22c55e',
+                  secondary: '#fff',
                 },
               },
               error: {
                 iconTheme: {
-                  primary: "#ef4444",
-                  secondary: "#fff",
+                  primary: '#ef4444',
+                  secondary: '#fff',
                 },
               },
             }}
@@ -36,5 +36,5 @@ export function Providers({ children }: { children: React.ReactNode }) {
         </LanguageProvider>
       </ThemeProvider>
     </SessionProvider>
-  );
+  )
 }

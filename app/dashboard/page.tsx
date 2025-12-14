@@ -1,17 +1,17 @@
-import { authOptions } from "@/lib/auth";
-import { getJobs } from "@/lib/jobs.server";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { DashboardClient } from "./dashboard-client";
+import { authOptions } from '@/providers/google-auth-options'
+import { getJobs } from '@/server-utils/jobs.server'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
+import { DashboardClient } from './dashboard-client'
 
 export default async function DashboardPage() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions)
 
   if (!session?.user?.email) {
-    redirect("/");
+    redirect('/')
   }
 
-  const jobs = await getJobs(session.user.email);
+  const jobs = await getJobs(session.user.email)
 
-  return <DashboardClient initialJobs={jobs} />;
+  return <DashboardClient initialJobs={jobs} />
 }

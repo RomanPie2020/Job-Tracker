@@ -1,49 +1,49 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useLanguage } from "@/lib/language-context";
-import { useJobsStore } from "@/store/useJobsStore";
-import { Plus } from "lucide-react";
-import { useState } from "react";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { useLanguage } from '@/providers/language-context'
+import { useJobsStore } from '@/store/useJobsStore'
+import { Plus } from 'lucide-react'
+import { useState } from 'react'
 
 export function AddJobModal() {
-  const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [company, setCompany] = useState("");
-  const [notes, setNotes] = useState("");
-  const optimisticCreate = useJobsStore((state) => state.optimisticCreate);
-  const { t } = useLanguage();
+  const [open, setOpen] = useState(false)
+  const [title, setTitle] = useState('')
+  const [company, setCompany] = useState('')
+  const [notes, setNotes] = useState('')
+  const optimisticCreate = useJobsStore((state) => state.optimisticCreate)
+  const { t } = useLanguage()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!title.trim() || !company.trim()) {
-      return;
+      return
     }
 
     await optimisticCreate({
       title: title.trim(),
       company: company.trim(),
       notes: notes.trim() || undefined,
-    });
+    })
 
     // Reset form and close modal
-    setTitle("");
-    setCompany("");
-    setNotes("");
-    setOpen(false);
-  };
+    setTitle('')
+    setCompany('')
+    setNotes('')
+    setOpen(false)
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -57,9 +57,7 @@ export function AddJobModal() {
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>{t.addNewJob}</DialogTitle>
-            <DialogDescription>
-              {t.trackNewJob}
-            </DialogDescription>
+            <DialogDescription>{t.trackNewJob}</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
@@ -115,5 +113,5 @@ export function AddJobModal() {
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

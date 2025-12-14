@@ -9,8 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useLanguage } from '@/lib/language-context'
-import { useTheme } from '@/lib/theme-context'
+import { useLanguage } from '@/providers/language-context'
+import { useTheme } from '@/providers/theme-context'
 import { Briefcase, Globe, LogOut, Moon, Sun } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 
@@ -19,7 +19,7 @@ export function Navbar() {
   const { theme, toggleTheme } = useTheme()
   const { language, toggleLanguage, t } = useLanguage()
 
-  const getInitials = (name?: string | null) => {
+  const getInitialsOfAvatar = (name?: string | null) => {
     if (!name) return 'U'
     return name
       .split(' ')
@@ -41,7 +41,11 @@ export function Navbar() {
           <button
             onClick={toggleLanguage}
             className="flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
-            title={language === 'uk' ? 'Switch to English' : 'Перемкнути на українську'}
+            title={
+              language === 'uk'
+                ? 'Switch to English'
+                : 'Перемкнути на українську'
+            }
           >
             <Globe className="h-4 w-4" />
           </button>
@@ -68,7 +72,7 @@ export function Navbar() {
                       alt={session.user.name || 'User'}
                     />
                     <AvatarFallback>
-                      {getInitials(session.user.name)}
+                      {getInitialsOfAvatar(session.user.name)}
                     </AvatarFallback>
                   </Avatar>
                 </button>

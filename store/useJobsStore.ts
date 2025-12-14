@@ -1,34 +1,11 @@
-import { jobsApi } from "@/lib/api-client"
-import { CreateJobData, Job, JobsStore } from "@/shared/types/job-types"
-import toast from "react-hot-toast"
-import { create } from "zustand"
+import { jobsApi } from '@/services/api-client'
+import { IJobsStore } from '@/shared/types/job-types'
+import { handleApiError } from '@/utils/api-error-handler'
+import { createTempJob } from '@/utils/create-temp-job-handler'
+import toast from 'react-hot-toast'
+import { create } from 'zustand'
 
-/**
- * Helper function to create a temporary job for optimistic updates
- */
-const createTempJob = (jobData: CreateJobData): Job => ({
-  id: `tmp-${Date.now()}`,
-  title: jobData.title,
-  company: jobData.company,
-  status: "Applied",
-  createdAt: Date.now(),
-  notes: jobData.notes,
-});
-
-/**
- * Helper function to handle API errors with rollback
- */
-const handleApiError = <T>(
-  error: unknown,
-  rollback: () => void,
-  errorMessage: string
-) => {
-  console.error(errorMessage, error);
-  rollback();
-  toast.error(errorMessage);
-};
-
-export const useJobsStore = create<JobsStore>((set, get) => ({
+export const useJobsStore = create<IJobsStore>((set, get) => ({
   jobs: [],
   isSyncing: false,
   lastError: undefined,
@@ -36,20 +13,20 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
   setJobs: (jobs) => set({ jobs }),
 
   optimisticCreate: async (jobData) => {
-    const tempJob = createTempJob(jobData);
-    const tempId = tempJob.id;
+    const tempJob = createTempJob(jobData)
+    const tempId = tempJob.id
 
     // Optimistically add to UI
     set((state) => ({
       jobs: [...state.jobs, tempJob],
       isSyncing: true,
       lastError: undefined,
-    }));
+    }))
 
     try {
-      const updatedJobs = await jobsApi.create(jobData);
-      set({ jobs: updatedJobs, isSyncing: false });
-      toast.success("Job added successfully!");
+      const updatedJobs = await jobsApi.create(jobData)
+      set({ jobs: updatedJobs, isSyncing: false })
+      toast.success('Job added successfully!')
     } catch (error) {
       handleApiError(
         error,
@@ -57,36 +34,36 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
           set((state) => ({
             jobs: state.jobs.filter((j) => j.id !== tempId),
             isSyncing: false,
-            lastError: "Failed to create job",
-          }));
+            lastError: 'Failed to create job',
+          }))
         },
-        "Failed to add job"
-      );
+        'Failed to add job'
+      )
     }
   },
 
   optimisticUpdate: async (id, patch) => {
-    const { jobs } = get();
-    const oldJob = jobs.find((j) => j.id === id);
-    
+    const { jobs } = get()
+    const oldJob = jobs.find((j) => j.id === id)
+
     if (!oldJob) {
-      console.warn(`Job with id ${id} not found`);
-      return;
+      console.warn(`Job with id ${id} not found`)
+      return
     }
 
-    const updatedJob = { ...oldJob, ...patch };
+    const updatedJob = { ...oldJob, ...patch }
 
     // Optimistically update UI
     set((state) => ({
       jobs: state.jobs.map((j) => (j.id === id ? updatedJob : j)),
       isSyncing: true,
       lastError: undefined,
-    }));
+    }))
 
     try {
-      const updatedJobs = await jobsApi.update(updatedJob);
-      set({ jobs: updatedJobs, isSyncing: false });
-      toast.success("Job updated!");
+      const updatedJobs = await jobsApi.update(updatedJob)
+      set({ jobs: updatedJobs, isSyncing: false })
+      toast.success('Job updated!')
     } catch (error) {
       handleApiError(
         error,
@@ -94,21 +71,21 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
           set((state) => ({
             jobs: state.jobs.map((j) => (j.id === id ? oldJob : j)),
             isSyncing: false,
-            lastError: "Failed to update job",
-          }));
+            lastError: 'Failed to update job',
+          }))
         },
-        "Failed to update job"
-      );
+        'Failed to update job'
+      )
     }
   },
 
   optimisticDelete: async (id) => {
-    const { jobs } = get();
-    const deletedJob = jobs.find((j) => j.id === id);
-    
+    const { jobs } = get()
+    const deletedJob = jobs.find((j) => j.id === id)
+
     if (!deletedJob) {
-      console.warn(`Job with id ${id} not found`);
-      return;
+      console.warn(`Job with id ${id} not found`)
+      return
     }
 
     // Optimistically remove from UI
@@ -116,12 +93,12 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
       jobs: state.jobs.filter((j) => j.id !== id),
       isSyncing: true,
       lastError: undefined,
-    }));
+    }))
 
     try {
-      const updatedJobs = await jobsApi.delete(id);
-      set({ jobs: updatedJobs, isSyncing: false });
-      toast.success("Job deleted!");
+      const updatedJobs = await jobsApi.delete(id)
+      set({ jobs: updatedJobs, isSyncing: false })
+      toast.success('Job deleted!')
     } catch (error) {
       handleApiError(
         error,
@@ -129,21 +106,21 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
           set((state) => ({
             jobs: [...state.jobs, deletedJob],
             isSyncing: false,
-            lastError: "Failed to delete job",
-          }));
+            lastError: 'Failed to delete job',
+          }))
         },
-        "Failed to delete job"
-      );
+        'Failed to delete job'
+      )
     }
   },
 
   optimisticUpdateStatus: async (id, status) => {
-    const { jobs } = get();
-    const oldJob = jobs.find((j) => j.id === id);
-    
+    const { jobs } = get()
+    const oldJob = jobs.find((j) => j.id === id)
+
     if (!oldJob) {
-      console.warn(`Job with id ${id} not found`);
-      return;
+      console.warn(`Job with id ${id} not found`)
+      return
     }
 
     // Optimistically update status
@@ -151,11 +128,11 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
       jobs: state.jobs.map((j) => (j.id === id ? { ...j, status } : j)),
       isSyncing: true,
       lastError: undefined,
-    }));
+    }))
 
     try {
-      const updatedJobs = await jobsApi.updateStatus(id, status);
-      set({ jobs: updatedJobs, isSyncing: false });
+      const updatedJobs = await jobsApi.updateStatus(id, status)
+      set({ jobs: updatedJobs, isSyncing: false })
     } catch (error) {
       handleApiError(
         error,
@@ -163,11 +140,11 @@ export const useJobsStore = create<JobsStore>((set, get) => ({
           set((state) => ({
             jobs: state.jobs.map((j) => (j.id === id ? oldJob : j)),
             isSyncing: false,
-            lastError: "Failed to update job status",
-          }));
+            lastError: 'Failed to update job status',
+          }))
         },
-        "Failed to update status"
-      );
+        'Failed to update status'
+      )
     }
   },
-}));
+}))

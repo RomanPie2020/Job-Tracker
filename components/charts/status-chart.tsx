@@ -1,8 +1,8 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useLanguage } from '@/lib/language-context'
-import { JOB_STATUSES, JobStatus } from '@/shared/types/job-types'
+import { useLanguage } from '@/providers/language-context'
+import { JOB_STATUSES, TJobStatus } from '@/shared/types/job-types'
 import { useJobsStore } from '@/store/useJobsStore'
 import { getJobStatusLabel } from '@/utils/job-statuses-language-helper'
 import { motion } from 'framer-motion'
@@ -16,7 +16,7 @@ import {
   Tooltip,
 } from 'recharts'
 
-const COLORS: Record<JobStatus, string> = {
+const COLORS: Record<TJobStatus, string> = {
   Applied: '#3b82f6',
   Screening: '#eab308',
   Interview: '#a855f7',
@@ -91,7 +91,7 @@ export function StatusChart() {
                 {data.map((entry) => (
                   <Cell
                     key={`cell-${entry.name}`}
-                    fill={COLORS[entry.status as JobStatus]}
+                    fill={COLORS[entry.status as TJobStatus]}
                   />
                 ))}
               </Pie>

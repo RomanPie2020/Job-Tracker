@@ -1,16 +1,16 @@
 'use client'
 
-import { useLanguage } from '@/lib/language-context'
-import { cn } from '@/lib/utils'
-import { Job, JobStatus, STATUS_COLORS } from '@/shared/types/job-types'
+import { useLanguage } from '@/providers/language-context'
+import { STATUS_COLORS, TJobStatus } from '@/shared/types/job-types'
+import { cn } from '@/utils/clsx'
 import { getJobStatusLabel } from '@/utils/job-statuses-language-helper'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { JobCard } from './job-card'
 
 interface ColumnProps {
-  status: JobStatus
-  jobs: Job[]
+  status: TJobStatus
+  jobs: IJob[]
 }
 
 export function Column({ status, jobs }: ColumnProps) {

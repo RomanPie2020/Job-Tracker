@@ -1,19 +1,27 @@
-"use client";
+'use client'
 
-import { JOB_STATUSES, JobStatus } from "@/shared/types/job-types"
-import { useJobsStore } from "@/store/useJobsStore"
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
-import { motion } from "framer-motion"
-import { useState } from "react"
-import { Column } from "./column"
-import { JobCard } from "./job-card"
+import { JOB_STATUSES, TJobStatus } from '@/shared/types/job-types'
+import { useJobsStore } from '@/store/useJobsStore'
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { Column } from './column'
+import { JobCard } from './job-card'
 
 export function Board() {
-  const jobs = useJobsStore((state) => state.jobs);
+  const jobs = useJobsStore((state) => state.jobs)
   const optimisticUpdateStatus = useJobsStore(
     (state) => state.optimisticUpdateStatus
-  );
-  const [activeId, setActiveId] = useState<string | null>(null);
+  )
+  const [activeId, setActiveId] = useState<string | null>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -21,43 +29,43 @@ export function Board() {
         distance: 8,
       },
     })
-  );
+  )
 
   const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(event.active.id as string);
-  };
+    setActiveId(event.active.id as string)
+  }
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
+    const { active, over } = event
 
     if (!over) {
-      setActiveId(null);
-      return;
+      setActiveId(null)
+      return
     }
 
-    const jobId = active.id as string;
-    const newStatus = over.id as JobStatus;
+    const jobId = active.id as string
+    const newStatus = over.id as TJobStatus
 
     // Check if the drop target is a valid status
     if (JOB_STATUSES.includes(newStatus)) {
-      const job = jobs.find((j) => j.id === jobId);
+      const job = jobs.find((j) => j.id === jobId)
       if (job && job.status !== newStatus) {
-        optimisticUpdateStatus(jobId, newStatus);
+        optimisticUpdateStatus(jobId, newStatus)
       }
     }
 
-    setActiveId(null);
-  };
+    setActiveId(null)
+  }
 
   const handleDragCancel = () => {
-    setActiveId(null);
-  };
+    setActiveId(null)
+  }
 
-  const getJobsByStatus = (status: JobStatus) => {
-    return jobs.filter((job) => job.status === status);
-  };
+  const getJobsByStatus = (status: TJobStatus) => {
+    return jobs.filter((job) => job.status === status)
+  }
 
-  const activeJob = activeId ? jobs.find((job) => job.id === activeId) : null;
+  const activeJob = activeId ? jobs.find((job) => job.id === activeId) : null
 
   return (
     <DndContext
@@ -85,5 +93,5 @@ export function Board() {
         ) : null}
       </DragOverlay>
     </DndContext>
-  );
+  )
 }
