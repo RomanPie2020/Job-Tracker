@@ -26,6 +26,16 @@ export interface ITranslations {
   notes: string
   cancel: string
 
+  // Edit Job Modal
+  editJob: string
+  updateJobDetails: string
+  saveChanges: string
+
+  // Delete Job Modal
+  deleteJob: string
+  deleteConfirmation: string
+  delete: string
+
   // Chart
   applicationStatusOverview: string
   noDataYet: string

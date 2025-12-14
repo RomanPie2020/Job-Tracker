@@ -1,5 +1,5 @@
-import { authOptions } from '@//providers/google-auth-options'
-import { getJobs } from '@//server-utils/jobs.server'
+import { authOptions } from '@/providers/google-auth-options'
+import { getJobs } from '@/server-utils/jobs.server'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { DashboardClient } from './dashboard-client'

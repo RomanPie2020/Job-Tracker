@@ -45,7 +45,7 @@ export default function Home() {
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
             className="gap-2 text-lg"
           >
-            <GoogleIcon />
+            <GoogleIcon/>
             Sign in with Google
           </Button>
         </motion.div>

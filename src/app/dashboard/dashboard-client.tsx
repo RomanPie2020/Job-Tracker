@@ -2,11 +2,11 @@
 
 import { StatusChart } from '@//components/charts/status-chart'
 import { Board } from '@//components/kanban/board'
-import { AddJobModal } from '@//components/modals/add-job-modal'
 import { Navbar } from '@//components/navbar'
 import { useLanguage } from '@//providers/language-context'
 import { IJob } from '@//shared/types/job-types'
 import { useJobsStore } from '@//store/useJobsStore'
+import { JobModal } from '@/components/modals/job-modal/job-modal'
 import { useEffect } from 'react'
 
 interface IDashboardClientProps {
@@ -35,7 +35,7 @@ export function DashboardClient({ initialJobs }: IDashboardClientProps) {
             </p>
           </div>
           <div className="shrink-0">
-            <AddJobModal />
+            <JobModal variant="create" />
           </div>
         </div>
 

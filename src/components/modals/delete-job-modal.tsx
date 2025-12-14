@@ -1,97 +1,13 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
 import { IJob } from '@/shared/types/job-types'
-import { useJobsStore } from '@/store/useJobsStore'
-import { Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { JobModal } from './job-modal/job-modal'
 
-interface DeleteJobModalProps {
+interface IDeleteJobModalProps {
   job: IJob
   trigger?: React.ReactNode
 }
 
-export function DeleteJobModal({ job, trigger }: DeleteJobModalProps) {
-  const [open, setOpen] = useState(false)
-  const optimisticDelete = useJobsStore(
-    (state: { optimisticDelete: (id: string) => Promise<void> }) =>
-      state.optimisticDelete
-  )
-
-  const handleDelete = () => {
-    optimisticDelete(job.id)
-    setOpen(false)
-  }
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      {trigger ? (
-        <div onClick={() => setOpen(true)}>{trigger}</div>
-      ) : (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
-          onClick={(e) => {
-            e.stopPropagation()
-            setOpen(true)
-          }}
-        >
-          <Trash2 className="h-4 w-4 text-destructive" />
-        </Button>
-      )}
-      <DialogContent className="max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Delete IJob Application</DialogTitle>
-          <DialogDescription>
-            Are you sure you want to delete this job application? This action
-            cannot be undone.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="rounded-lg border bg-muted/50 p-4 overflow-hidden">
-          <div className="space-y-2">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                Position
-              </p>
-              <p className="font-semibold break-words">
-                {job.title}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                Company
-              </p>
-              <p className="font-semibold break-words">{job.company}</p>
-            </div>
-            {job.notes && (
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  Notes
-                </p>
-                <p className="text-sm break-words whitespace-pre-wrap">{job.notes}</p>
-              </div>
-            )}
-          </div>
-        </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
-            Cancel
-          </Button>
-          <Button variant="destructive" onClick={handleDelete}>
-            <Trash2 className="mr-2 h-4 w-4" />
-            Delete
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
+export function DeleteJobModal({ job, trigger }: IDeleteJobModalProps) {
+  return <JobModal variant="delete" job={job} trigger={trigger} />
 }

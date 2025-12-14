@@ -26,6 +26,16 @@ export const translations: Record<TLanguage, ITranslations> = {
     companyName: 'Компанія',
     notes: 'Нотатки',
     cancel: 'Скасувати',
+    
+    // Edit Job Modal
+    editJob: 'Редагувати вакансію',
+    updateJobDetails: 'Оновіть деталі заявки нижче.',
+    saveChanges: 'Зберегти зміни',
+
+    // Delete Job Modal
+    deleteJob: 'Видалити вакансію',
+    deleteConfirmation: 'Ви впевнені, що хочете видалити цю заявку? Цю дію не можна скасувати.',
+    delete: 'Видалити',
 
     // Chart
     applicationStatusOverview: 'Огляд статусу заявок',
@@ -64,6 +74,17 @@ export const translations: Record<TLanguage, ITranslations> = {
     companyName: 'Company',
     notes: 'Notes',
     cancel: 'Cancel',
+
+    // Edit Job Modal
+    editJob: 'Edit Job Application',
+    updateJobDetails: 'Update the job application details below.',
+    saveChanges: 'Save Changes',
+
+    // Delete Job Modal
+    deleteJob: 'Delete Job Application',
+    deleteConfirmation:
+      'Are you sure you want to delete this job application? This action cannot be undone.',
+    delete: 'Delete',
 
     // Chart
     applicationStatusOverview: 'Application Status Overview',
