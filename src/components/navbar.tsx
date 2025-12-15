@@ -31,7 +31,7 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-16 w-full items-center justify-between px-4">
+      <div className="flex w-full flex-col items-center justify-between gap-2 py-2 sm:h-16 sm:flex-row sm:py-0 px-4">
         <div className="flex shrink-0 items-center gap-2">
           <Briefcase className="h-6 w-6 shrink-0 text-primary" />
           <h1 className="text-xl font-bold">{t.jobTracker}</h1>

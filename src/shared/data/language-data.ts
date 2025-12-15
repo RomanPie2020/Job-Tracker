@@ -26,7 +26,7 @@ export const translations: Record<TLanguage, ITranslations> = {
     companyName: 'Компанія',
     notes: 'Нотатки',
     cancel: 'Скасувати',
-    
+
     // Edit Job Modal
     editJob: 'Редагувати вакансію',
     updateJobDetails: 'Оновіть деталі заявки нижче.',
@@ -34,7 +34,8 @@ export const translations: Record<TLanguage, ITranslations> = {
 
     // Delete Job Modal
     deleteJob: 'Видалити вакансію',
-    deleteConfirmation: 'Ви впевнені, що хочете видалити цю заявку? Цю дію не можна скасувати.',
+    deleteConfirmation:
+      'Ви впевнені, що хочете видалити цю заявку? Цю дію не можна скасувати.',
     delete: 'Видалити',
 
     // Chart
@@ -51,7 +52,7 @@ export const translations: Record<TLanguage, ITranslations> = {
   },
   en: {
     // Navbar
-    jobTracker: 'Job Tracker',
+    jobTracker: 'Job Application Tracker',
     signOut: 'Sign out',
 
     // Dashboard
